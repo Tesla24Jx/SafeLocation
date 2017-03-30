@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/topbar"/>
+
+    <EditText
+        android:id="@+id/serviceId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ed_bg_default"
+        android:layout_margin="@dimen/a4"
+        android:hint="请输入对方的ServiceId"/>
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_bg"
+        android:text="查询"
+        android:layout_margin="@dimen/a4"/>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@drawable/btn_bg"
+        android:layout_margin="@dimen/a4"/>
+
+</LinearLayout>

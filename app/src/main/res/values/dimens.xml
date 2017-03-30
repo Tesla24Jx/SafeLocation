@@ -1,0 +1,24 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!--间距-->
+    <dimen name="align_topbar">56dp</dimen>
+    <dimen name="a1">32dp</dimen>
+    <dimen name="a2">24dp</dimen>
+    <dimen name="a3">20dp</dimen>
+    <dimen name="a4">16dp</dimen>
+    <dimen name="a5">12dp</dimen>
+    <dimen name="a6">8dp</dimen>
+    <!--字体大小-->
+    <dimen name="t1">28sp</dimen>
+    <dimen name="t2">24sp</dimen>
+    <dimen name="t3">20sp</dimen>
+    <dimen name="t4">18sp</dimen>
+    <dimen name="t5">16sp</dimen>
+    <dimen name="t6">14sp</dimen>
+    <dimen name="t7">12sp</dimen>
+    <!--按钮-->
+    <dimen name="btn_w_short">70dp</dimen>
+    <dimen name="btn_w_long">140dp</dimen>
+</resources>

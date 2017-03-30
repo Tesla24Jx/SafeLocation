@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SafeLocation</string>
+    <string name="login_text">title</string>
+    <string name="register">注册</string>
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:textColor="@color/blue"
+        android:text="btn"
+        android:textSize="18sp"
+        android:background="@drawable/btn_bg_white"
+        android:gravity="center"
+        android:id="@+id/tv_take_photo" />
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="3dp" />
+  <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:textColor="@color/blue"
+        android:text="btn"
+        android:textSize="18sp"
+        android:background="@drawable/btn_bg_white"
+        android:gravity="center"
+        android:id="@+id/tv_choose_photo" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="3dp" />
+  <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:textColor="@color/blue"
+        android:text="取消"
+        android:textSize="18sp"
+        android:background="@drawable/btn_bg_white"
+        android:gravity="center"
+        android:id="@+id/tv_cancel" />
+
+
+
+
+</LinearLayout>

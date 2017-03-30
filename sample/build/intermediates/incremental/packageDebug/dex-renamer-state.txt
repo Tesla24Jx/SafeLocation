@@ -1,0 +1,7 @@
+#Tue Jan 17 17:34:28 CST 2017
+base.0=/Users/Juliet/AndroidStudioProjects/SafeLocation/sample/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_589d06e8e3629480b9c069e976f60134068c2393
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/Users/Juliet/AndroidStudioProjects/SafeLocation/sample/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_ecfc8c28d143904ba5aaffe143731fdeff1d0d42/classes.dex
+base.1=/Users/Juliet/AndroidStudioProjects/SafeLocation/sample/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_ecfc8c28d143904ba5aaffe143731fdeff1d0d42
+file.0=/Users/Juliet/AndroidStudioProjects/SafeLocation/sample/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_589d06e8e3629480b9c069e976f60134068c2393/classes.dex

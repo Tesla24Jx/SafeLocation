@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/content_bg">
+
+    <include layout="@layout/topbar"/>
+
+
+    <LinearLayout
+        android:id="@+id/linelayout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="45dp"
+        android:orientation="vertical"
+        android:background="@color/theme_color">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/img_head"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/default_userhead"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/a1"
+            app:civ_border_width="1dp"
+            app:civ_border_color="#fff"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="@dimen/a4"
+        android:paddingLeft="@dimen/a4"
+        android:paddingRight="@dimen/a4"
+        android:layout_below="@id/linelayout">
+
+        <EditText
+            android:id="@+id/ed_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:text="13312345678"
+            android:background="@drawable/ed_bg_default"
+            android:maxLines="1"
+            android:maxLength="11"
+            android:hint="请输入手机号"
+            android:layout_marginBottom="@dimen/a4" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/ed_password"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:id="@+id/textNoAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="还没有账号？"
+                android:textSize="@dimen/t5"
+                android:textColor="@color/text_color_gray"
+                android:layout_gravity="right"
+                android:layout_marginTop="@dimen/a5"
+                android:layout_marginBottom="@dimen/a4"/>
+            <TextView
+                android:id="@+id/tv_gotoreg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="立即注册"
+                android:textSize="@dimen/t5"
+                android:textColor="@color/text_color_blue_deep"
+                android:layout_toRightOf="@id/textNoAccount"
+                android:layout_marginTop="@dimen/a5"
+                android:layout_marginBottom="@dimen/a4"/>
+            <TextView
+                android:id="@+id/tv_findpwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="找回密码"
+                android:textSize="@dimen/t5"
+                android:textColor="@color/text_color_default"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/a5"
+                android:layout_marginBottom="@dimen/a4"/>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg"
+            android:text="登录"
+            android:textColor="@color/text_btn_color"
+            android:layout_marginBottom="32dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:id="@+id/ed_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:background="@drawable/ed_bg_default"
+            android:maxLines="1"
+            android:maxLength="16"
+            android:text="qq123456"
+            android:hint="请输入密码"
+            android:layout_below="@+id/ed_phone"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+</RelativeLayout>

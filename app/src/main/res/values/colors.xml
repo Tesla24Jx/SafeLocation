@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#ed4f4f</color>
+    <color name="colorAccent">#1616df</color>
+    <!--标题栏和底部-->
+    <color name="topbar_bg">#ed4f4f</color>
+    <color name="topbar_title_text">#fff</color>
+    <color name="bottom_bg">#e11f1f</color>
+
+    <!--按钮颜色-->
+    <color name="btn_default">#fff</color>
+    <color name="btn_pressed">#8800b0ff</color>
+
+    <color name="blue">#00b0ff</color>
+    <!--按钮字体颜色-->
+    <color name="btn_text_default">#ed4f4f</color>
+    <color name="btn_text_pressed">#88ffffff</color>
+
+    <!--字体颜色-->
+    <color name="text_color_gray">#888888</color>
+    <color name="text_color_blue">#1773d0</color>
+    <color name="text_color_blue_deep">#0b47a1</color>
+
+
+    <color name="line_color">#bdbdbd</color>
+
+    <color name="theme_color">#ed4f4f</color>
+    <color name="theme_color_88">#88ed4f4f</color>
+    <color name="bottom_normal">#9e9e9e</color>
+    <color name="content_bg">#fff</color>
+
+    <color name="dialog_hint">#886f7071</color>
+    <color name="menu_item">#333</color>
+</resources>

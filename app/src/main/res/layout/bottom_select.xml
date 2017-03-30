@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ly_main_tab_bottom"
+    android:layout_width="fill_parent"
+    android:layout_height="56dp"
+    android:orientation="horizontal"
+    android:layout_alignParentBottom="true"
+    android:background="#FCFCFC" >
+    
+        <LinearLayout
+            android:id="@+id/ly_tab_location"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:descendantFocusability="beforeDescendants"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="10dp">
+
+            <ImageButton
+                android:id="@+id/imgbtn_location"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="#0000"
+                android:clickable="false"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_location_normal" />
+
+            <TextView
+                android:id="@+id/tv_location_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:textColor="@color/theme_color"
+                android:text="首页" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ly_tab_flist"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:descendantFocusability="beforeDescendants"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="10dp">
+
+            <ImageButton
+                android:id="@+id/imgbtn_flist"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="#0000"
+                android:clickable="false"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_flist_normal" />
+
+            <TextView
+                android:id="@+id/tv_flist_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:textColor="#9e9e9e"
+                android:text="社交" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ly_tab_group"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:descendantFocusability="beforeDescendants"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="10dp">
+
+            <ImageButton
+                android:id="@+id/imgbtn_group"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="#0000"
+                android:clickable="false"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_group_normal" />
+
+            <TextView
+                android:id="@+id/tv_group_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:textColor="#9e9e9e"
+                android:text="功能" />
+        </LinearLayout>
+</LinearLayout>

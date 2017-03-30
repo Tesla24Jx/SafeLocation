@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/topbar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@color/line_color"
+        android:padding="3dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/t6"
+            android:text="个人信息"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/personInfo_layout"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:padding="5dp"
+        android:background="#fff">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_person_head"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/default_userhead" />
+
+
+        <TextView
+            android:id="@+id/tv_person_name"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:text="个人信息"
+            android:textSize="@dimen/t4"
+            android:gravity="center"
+            android:layout_toRightOf="@id/iv_person_head"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/tv_person_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="13160674602"
+            android:textSize="@dimen/t5"
+            android:layout_toRightOf="@id/iv_person_head"
+            android:layout_below="@id/tv_person_name"
+            android:layout_marginLeft="10dp"/>
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_enter"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@color/line_color"
+        android:padding="3dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/t6"
+            android:text="测试"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relay"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:padding="5dp"
+        android:background="#fff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查询经纬度"
+            android:textSize="@dimen/t3"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"/>
+
+        <ImageView
+            android:id="@+id/sego"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_enter"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical" />
+    </RelativeLayout>
+
+</LinearLayout>

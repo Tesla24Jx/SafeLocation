@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_friend"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.safelocation.HomePage.FriendList.AddFriendActivity">
+
+    <include layout="@layout/topbar"/>
+
+    <LinearLayout
+        android:id="@+id/l2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:background="#fff">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_f_img"
+                android:layout_width="32dp"
+                android:layout_height="36dp"
+                android:src="@drawable/default_userhead"
+                android:layout_margin="5dp" />
+
+            <TextView
+                android:id="@+id/tv_f_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="周华健"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_mime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="备注:"
+            android:textColor="#111"
+            android:textSize="@dimen/t5"
+            android:layout_marginLeft="@dimen/a4"
+            android:layout_marginTop="@dimen/a4"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/a5"
+            android:layout_marginTop="@dimen/a4"
+            android:background="#fff"
+            android:layout_gravity="center_vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="授权给他"
+                android:textSize="@dimen/a3"/>
+
+            <Switch
+                android:id="@+id/switch_give"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/a5"
+            android:layout_marginTop="@dimen/a4"
+            android:background="#fff"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="他已授权给您"
+                android:textSize="@dimen/a3"/>
+
+            <Switch
+                android:id="@+id/switch_get"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg"
+            android:text="同意添加好友"
+            android:textColor="@color/text_btn_color"
+            android:layout_marginLeft="@dimen/a4"
+            android:layout_marginRight="@dimen/a4"
+            android:layout_marginTop="@dimen/a1"
+            />
+    </LinearLayout>
+
+    <include layout="@layout/topbar"></include>
+
+
+</LinearLayout>
