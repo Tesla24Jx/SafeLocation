@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.google.gson.Gson;
 import com.safelocation.Entity.HttpRequest;
@@ -26,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        setContentView(R.layout.activity_main);
 
         aCache=ACache.get(this);
         String login = aCache.getAsString("isLogin");
@@ -91,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
                     gotoHomePage();
                 }else{
                     Log.d("###msg:",json.getMsg());
+                    startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                    finish();
                 }
             }
         };
