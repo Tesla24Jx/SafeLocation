@@ -3,11 +3,14 @@ package com.safelocation.HomePage.Location;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -23,8 +26,10 @@ import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.trace.OnStartTraceListener;
+import com.safelocation.Entity.Userdata;
 import com.safelocation.R;
 import com.safelocation.Utils.MyOrientationListener;
+import com.safelocation.Utils.ToastUtils;
 
 /**
  * Created by Juliet on 2017/2/25.
@@ -33,6 +38,8 @@ import com.safelocation.Utils.MyOrientationListener;
 public class LocationFragment extends Fragment implements View.OnClickListener {
     OnStartTraceListener startTraceListener;
     private Intent serviceIntent = null;
+    private TextView topbar_title;
+    private String address;
 
 
     //定位
@@ -57,14 +64,16 @@ public class LocationFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_map, container, false);
+        View view = inflater.inflate(R.layout.home_1_location, container, false);
 
         //startBDLbs();
 
+        topbar_title = (TextView) view.findViewById(R.id.topbar_title);
         mMapView = (MapView) view.findViewById(R.id.bmapView);
         baiduMap = mMapView.getMap();
         baiduMap.setMapStatus(MapStatusUpdateFactory.zoomTo(15.0f));//设置缩放级别
         initLocation();     //初始化我的位置
+
         view.findViewById(R.id.btn_traffic).setOnClickListener(this);
         view.findViewById(R.id.type_normal).setOnClickListener(this);
         view.findViewById(R.id.type_SATELLITE).setOnClickListener(this);
@@ -77,6 +86,8 @@ public class LocationFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        topbar_title.setText("首页");
+        baiduMap.setTrafficEnabled(true);
     }
 
 
@@ -108,6 +119,7 @@ public class LocationFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+
     }
 
 
@@ -135,6 +147,7 @@ public class LocationFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_location:
                 //定位
                 centerToMyLocation();
+                break;
             case R.id.btn_compass:
                 //罗盘模式
                 if (tag) {//tag默认是false
@@ -170,16 +183,18 @@ public class LocationFragment extends Fragment implements View.OnClickListener {
             MyLocationConfiguration config = new
                     MyLocationConfiguration(mLocationMode,true,mLocationIcon);
             baiduMap.setMyLocationConfigeration(config);
-
+            address = location.getAddrStr();
             loc=location;
+            Userdata.loc=location;
             if (isFirstLoc) {
                 isFirstLoc = false;
                 LatLng ll = new LatLng(location.getLatitude(), location.getLongitude());
                 MapStatusUpdate msu=MapStatusUpdateFactory.newLatLng(ll);
                 baiduMap.animateMapStatus(msu);
-                //  Snackbar.make(btnCompass,location.getAddrStr(),Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(mMapView,location.getAddrStr(),Snackbar.LENGTH_LONG).show();
 
             }
+
         }
 
         @Override

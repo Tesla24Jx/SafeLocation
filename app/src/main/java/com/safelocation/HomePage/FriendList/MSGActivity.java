@@ -39,12 +39,17 @@ public class MSGActivity extends AppCompatActivity {
     private ImageView topbar_right;
     private TextView topbar_title;
     private ImageView fhead;
-    private TextView fname;
+    private TextView tv_fname;
     private Button btn_add;
     private TextView tv_mime;
     private int aSwitch_get = 1;
     private Switch aSwitch_give;
 
+    String fid;
+    String fimg;
+    String fname;
+    String fmime;
+    String type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +59,18 @@ public class MSGActivity extends AppCompatActivity {
         topbar_right = (ImageView)findViewById(R.id.topbar_right);
         topbar_title = (TextView) findViewById(R.id.topbar_title);
         fhead = (ImageView)findViewById(R.id.iv_f_img);
-        fname = (TextView)findViewById(R.id.tv_f_name);
+        tv_fname = (TextView)findViewById(R.id.tv_f_name);
         tv_mime = (TextView) findViewById(R.id.tv_mime);
         aSwitch_give = (Switch)findViewById(R.id.switch_give);
         btn_add = (Button)findViewById(R.id.btn_add);
         topbar_left.setImageResource(R.drawable.ic_back);
         topbar_title.setText("好友添加请求");
+        topbar_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         aSwitch_give.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -71,45 +82,101 @@ public class MSGActivity extends AppCompatActivity {
             }
         });
 
-        ACache aCache=ACache.get(this);
-        String str= aCache.getAsString("add_friend");
-        if(str!=null) {
-            final Addfriend friendInfo= new Gson().fromJson(str,Addfriend.class);
-            fname.setText(friendInfo.getFname());
+        Bundle bundle = getIntent().getBundleExtra("fdata");
+        if(bundle!=null) {
+            fid = bundle.getString("fid");
+            fimg = bundle.getString("fimg");
+            fname = bundle.getString("fname");
+            fmime = bundle.getString("fmime");
+            type = bundle.getString("type");
+            tv_fname.setText(fname);
             Glide.with(this)
-                    .load(friendInfo.getFimg())
+                    .load(fimg)
+                    .placeholder(R.drawable.default_userhead)
                     .into(fhead);
-            tv_mime.setText("备注："+friendInfo.getMime()+friendInfo.getFid());
-            aSwitch_give.setChecked(true);
-            btn_add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    btn_add.setClickable(false);
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        jsonObject.put("uid", Userdata.uid);
-                        jsonObject.put("fid", friendInfo.getFid());
-                        jsonObject.put("forpermission",aSwitch_get );
-                        jsonObject.put("getpermission", friendInfo.getGetpermission());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    String strJson = jsonObject.toString();
-                    String type = "add_agree";
-                    HttpUtil.getInstance().getJSON(new SubscriberOnNextListener<StrJson>() {
-                        @Override
-                        public void onNext(StrJson o) {
+            if(type.equals("af")){
+                tv_mime.setText("备注："+fmime);
+                aSwitch_give.setChecked(true);
 
-                            ACache.get(MSGActivity.this).put("refulshList",o.getData());  //把好友列表信息存储到缓存
-                            Log.d("###return_data",o.getData());
-                            sendBroadcast(new Intent().setAction("rushList"));
-                            Snackbar.make(btn_add,"好友已添加",Snackbar.LENGTH_SHORT).show();
-                            finish();
+                btn_add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        btn_add.setClickable(false);
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("uid", Userdata.uid);
+                            jsonObject.put("fid", fid);
+                            jsonObject.put("forpermission",aSwitch_get );
+                            jsonObject.put("getpermission", 1);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    },strJson,type);
+                        String strJson = jsonObject.toString();
+                        String type = "add_agree";
+                        HttpUtil.getInstance().getJSON(new SubscriberOnNextListener<StrJson>() {
+                            @Override
+                            public void onNext(StrJson o) {
 
-                }
-            });
+                                ACache.get(MSGActivity.this).put("refulshList",o.getData());  //把好友列表信息存储到缓存
+                                Log.d("###return_data",o.getData());
+                                sendBroadcast(new Intent().setAction("rushList"));
+                                Snackbar.make(btn_add,"好友已添加",Snackbar.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        },strJson,type);
+
+                    }
+                });
+
+            }else{
+                tv_mime.setText(fname+"请求查看你的位置权限");
+                topbar_title.setText("好友权限请求");
+                btn_add.setText("同意授予权限");
+            }
         }
+//        ACache aCache=ACache.get(this);
+//        String str= aCache.getAsString("add_friend");
+//        if(str!=null) {
+//            final Addfriend friendInfo= new Gson().fromJson(str,Addfriend.class);
+//            fname.setText(friendInfo.getFname());
+//            Glide.with(this)
+//                    .load(friendInfo.getFimg())
+//                    .into(fhead);
+//            tv_mime.setText("备注："+friendInfo.getMime()+friendInfo.getFid());
+//
+//            aSwitch_give.setChecked(true);
+//
+//            btn_add.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    btn_add.setClickable(false);
+//                    JSONObject jsonObject = new JSONObject();
+//                    try {
+//                        jsonObject.put("uid", Userdata.uid);
+//                        jsonObject.put("fid", friendInfo.getFid());
+//                        jsonObject.put("forpermission",aSwitch_get );
+//                        jsonObject.put("getpermission", friendInfo.getGetpermission());
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    String strJson = jsonObject.toString();
+//                    String type = "add_agree";
+//                    HttpUtil.getInstance().getJSON(new SubscriberOnNextListener<StrJson>() {
+//                        @Override
+//                        public void onNext(StrJson o) {
+//
+//                            ACache.get(MSGActivity.this).put("refulshList",o.getData());  //把好友列表信息存储到缓存
+//                            Log.d("###return_data",o.getData());
+//                            sendBroadcast(new Intent().setAction("rushList"));
+//                            Snackbar.make(btn_add,"好友已添加",Snackbar.LENGTH_SHORT).show();
+//                            finish();
+//                        }
+//                    },strJson,type);
+//
+//                }
+//            });
+//
+//        }
     }
+
 }

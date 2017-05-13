@@ -69,9 +69,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/t6"
-            android:text="测试"
+            android:text="其它"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/relay"
         android:layout_width="match_parent"
@@ -82,13 +83,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="查询经纬度"
+            android:text="修改密码"
             android:textSize="@dimen/t3"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"/>
 
         <ImageView
-            android:id="@+id/sego"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:src="@drawable/ic_enter"

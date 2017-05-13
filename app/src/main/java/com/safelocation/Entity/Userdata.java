@@ -1,5 +1,7 @@
 package com.safelocation.Entity;
 
+import com.baidu.location.BDLocation;
+
 /**
  * Created by Juliet on 2017/3/7.
  */
@@ -13,4 +15,5 @@ public class Userdata {
     public static int age;
     public static String img;
 
+    public static BDLocation loc;
 }

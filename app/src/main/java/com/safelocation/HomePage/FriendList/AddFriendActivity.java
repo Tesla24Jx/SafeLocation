@@ -84,7 +84,7 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
                 },ed_searchFriend.getText().toString().trim());
                 break;
             case R.id.topbar_left:
-
+                    finish();
                 break;
             case R.id.btn_add:
                 new FriendListModel().addfriend(new SubscriberOnNextListener<StrJson>() {
@@ -94,7 +94,6 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
                             Snackbar.make(btn_add, o.getMsg(), Snackbar.LENGTH_SHORT).show();
                         }else {
                             Snackbar.make(btn_add, o.getMsg(), Snackbar.LENGTH_SHORT).show();
-                            finish();
                         }
                     }
                 },fid,forpermission,getpermission,ed_mime.getText().toString().trim());

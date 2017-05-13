@@ -118,10 +118,14 @@ public class FriendListFragment extends Fragment implements TitlePopup.OnItemOnC
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(data.get(position).getGetPermission()==1){
+
                     Bundle bundle = new Bundle();
+                    bundle.putString("fhead",data.get(position).getImgurl());
                     bundle.putString("fphone",data.get(position).getPhone());
                     bundle.putString("fname",data.get(position).getName());
-                    startActivity(new Intent(getActivity(),MapActivity.class).putExtra("fdata",bundle));
+                    bundle.putInt("fgetPermission",data.get(position).getGetPermission());
+                    bundle.putInt("fforPermission",data.get(position).getForPermission());
+                    startActivity(new Intent(getActivity(),TransferActivity.class).putExtra("fdata",bundle));
                 }else{
                     Snackbar.make(listView," 未获得好友权限！",Snackbar.LENGTH_SHORT).show();
                 }
@@ -142,7 +146,7 @@ public class FriendListFragment extends Fragment implements TitlePopup.OnItemOnC
         topbar_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(),MSGActivity.class));
+                startActivity(new Intent(getActivity(),MsgListActivity.class));
             }
         });
         topbar_right.setOnClickListener(new View.OnClickListener() {
@@ -173,13 +177,13 @@ public class FriendListFragment extends Fragment implements TitlePopup.OnItemOnC
 
 
         for(FriendInfo f:fl){
-            listdata.add(deal(f.getFname(),f.getFimg(),f.getFphone(),f.getGetpermission()));
+            listdata.add(deal(f.getFname(),f.getFimg(),f.getFphone(),f.getGetpermission(),f.getForpermission()));
         }
 
         return listdata;
     }
 
-    public Flist deal(String name,String imgurl,String phone,int getPermission){
+    public Flist deal(String name,String imgurl,String phone,int getPermission,int forPermission){
         String pinyin = PinyinUtils.getPingYin(name);
         String Fpinyin = pinyin.substring(0, 1).toUpperCase();
 
@@ -188,6 +192,7 @@ public class FriendListFragment extends Fragment implements TitlePopup.OnItemOnC
         friend.setName(name);
         friend.setPhone(phone);
         friend.setGetPermission(getPermission);
+        friend.setForPermission(forPermission);
         friend.setPinYin(pinyin);
         // 正则表达式，判断首字母是否是英文字母
         if (Fpinyin.matches("[A-Z]")) {

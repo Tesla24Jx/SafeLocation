@@ -8,6 +8,7 @@ public class Flist {
     private String phone;
     private String name;
     private int getPermission;
+    private int forPermission;
     private String imgurl;
     private String PinYin;
     private String FirstPinYin;
@@ -56,7 +57,16 @@ public class Flist {
         return imgurl;
     }
 
+    public int getForPermission() {
+        return forPermission;
+    }
+
+    public void setForPermission(int forPermission) {
+        this.forPermission = forPermission;
+    }
+
     public void setImgurl(String imgurl) {
         this.imgurl = imgurl;
     }
+
 }

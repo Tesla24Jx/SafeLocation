@@ -1,16 +1,36 @@
 package com.safelocation.Entity;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * Created by Juliet on 2017/3/8.
  */
 
-public class Addfriend {
+public class Addfriend extends DataSupport{
     private String fid;
+    private String fphone;
     private String fname;
     private String fimg;
     private String mime;
     private String forpermission;
     private String getpermission;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getFphone() {
+        return fphone;
+    }
+
+    public void setFphone(String fphone) {
+        this.fphone = fphone;
+    }
 
     public String getFid() {
         return fid;

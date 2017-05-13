@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
                 android:textColor="#9e9e9e"
-                android:text="社交" />
+                android:text="通讯录" />
         </LinearLayout>
 
         <LinearLayout
@@ -91,6 +91,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
                 android:textColor="#9e9e9e"
-                android:text="功能" />
+                android:text="个人" />
         </LinearLayout>
 </LinearLayout>

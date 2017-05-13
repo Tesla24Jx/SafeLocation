@@ -5,6 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.igexin.sdk.PushManager;
@@ -16,6 +21,7 @@ import com.safelocation.Service.GeTuiPushService;
 import com.safelocation.Trace.MyService;
 import com.safelocation.Trace.TrackReceiver;
 import com.safelocation.Trace.TrackService;
+import com.safelocation.Utils.ToastUtils;
 
 
 public class HomeActivity extends AppCompatActivity implements FriendListFragment.GotoActivity{
@@ -61,6 +67,25 @@ public class HomeActivity extends AppCompatActivity implements FriendListFragmen
                 startActivity(new Intent(HomeActivity.this, AddFriendActivity.class));
                 break;
         }
+    }
+
+    // 用来计算返回键的点击间隔时间
+    private long exitTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                //弹出提示，可以有多种方式
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 
 }

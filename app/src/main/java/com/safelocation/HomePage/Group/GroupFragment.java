@@ -44,8 +44,7 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
 
         view.findViewById(R.id.personInfo_layout).setOnClickListener(this);
         view.findViewById(R.id.relay).setOnClickListener(this);
-        view.findViewById(R.id.sego).setOnClickListener(this);
-        topbar_title.setText("功能页");
+        topbar_title.setText("个人");
         return view;
     }
 
@@ -66,8 +65,7 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), InfoActivity.class));
                 break;
             case R.id.relay:
-            case R.id.sego:
-                startActivity(new Intent(getActivity(), Activity.class));
+                startActivity(new Intent(getActivity(), AlertPwdActivity.class));
                 break;
         }
     }

@@ -1,13 +1,11 @@
-package com.safelocation.Register;
+package com.safelocation.FindPassword;
 
 import android.Manifest;
-
 import android.app.Activity;
-
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -19,14 +17,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
-import com.safelocation.*;
+import com.safelocation.HomePage.Group.AlertPwdActivity;
+import com.safelocation.R;
+import com.safelocation.Register.RegisterFragment;
+import com.safelocation.Register.RegisterModel;
 import com.safelocation.Utils.CountDownTimerUtils;
 import com.safelocation.Utils.ToastUtils;
 
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
@@ -40,8 +42,6 @@ public class Verification_Fragment extends Fragment implements View.OnClickListe
     private static String APPKEY = "1a6d5a7dd8f8c";
     //从短信SDK应用后台注册得到的APPSECRET
     private static String APPSECRET = "3ca473ef5d31a905d7ea88d63b4a0f43";
-    Thread thread;
-    private GotoNewxtPage mCallback;
     private EventHandler eh;
     private TextView topbar_title;
     private Button btnRegist;
@@ -50,12 +50,6 @@ public class Verification_Fragment extends Fragment implements View.OnClickListe
     private EditText edVerification;
     private RegisterModel registerModel;
     boolean flag = false;//倒计时标记
-
-    private int r_time;
-
-    public interface GotoNewxtPage{
-        void gotoCompleteInfo(String str);
-    }
 
     @Nullable
     @Override
@@ -71,7 +65,7 @@ public class Verification_Fragment extends Fragment implements View.OnClickListe
         btnGetCode.setOnClickListener(this);
         btnRegist.setOnClickListener(this);
 
-        topbar_title.setText("注册");
+        topbar_title.setText("找回密码");
         return view;
     }
 
@@ -104,7 +98,15 @@ public class Verification_Fragment extends Fragment implements View.OnClickListe
                         String phone = (String) phoneMap.get("phone");
                         Log.d("###短信验证成功","手机号码为："+phone+"  国家为："+country);
                         Snackbar.make(btnGetCode,"验证成功",Snackbar.LENGTH_SHORT).show();
-                        mCallback.gotoCompleteInfo(phone);
+
+                            Intent intent = new Intent(getActivity(), AlertPwdActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("findpwd","findpwd");
+                            intent.putExtras(bundle);
+                            getActivity().startActivity(intent);
+                            getActivity().finish();
+
+
                     }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
                         //获取验证码成功  true为智能验证，false为普通下发短信
                         if((boolean)data){
@@ -143,21 +145,23 @@ public class Verification_Fragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_sendCode:     //发送验证码
+
                     //发送手机号码到后台服务器判断该手机号码是否已注册，checkAccount返回1为已注册
                     if (registerModel.checkAccount(edPhoneNum.getText().toString()).equals("1")) {
-                        //不发送验证码
-                        ToastUtils.snackbar_short(btnGetCode,"手机号已注册--后台判断！");
-                    }else{
-                        //发送验证码
+                        //手机号存在，发送验证码
                         sendVerificationCode();
+                    }else{
+                        //手机号不存在,不发送验证码
+                        ToastUtils.snackbar_short(btnGetCode,"该手机号未注册，请注册！");
                     }
+
                 break;
             case R.id.btn_register:     //注册
                 SMSSDK.submitVerificationCode("86",edPhoneNum.getText().toString().trim(),edVerification.getText().toString().trim());
                 break;
         }
     }
-    private RegisterFragment registerFragment;
+
 
 
     private void versionsolve() {
@@ -203,18 +207,6 @@ public class Verification_Fragment extends Fragment implements View.OnClickListe
         super.onDestroyView();
         //注销回调监听
         SMSSDK.unregisterEventHandler(eh);
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try{
-            mCallback = (GotoNewxtPage) activity;
-        }
-        catch(ClassCastException e)
-        {
-            throw new ClassCastException(activity.toString());
-        }
     }
 
     public void starttime(boolean flag){

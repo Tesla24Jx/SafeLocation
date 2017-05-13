@@ -1,31 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
 
     <include layout="@layout/topbar"/>
-
-    <EditText
-        android:id="@+id/serviceId"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ed_bg_default"
-        android:layout_margin="@dimen/a4"
-        android:hint="请输入对方的ServiceId"/>
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="50dp"
+        android:layout_height="150dp"
+        android:orientation="vertical"
+        android:layout_gravity="top|right"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="15dp">
+        <Button
+            android:id="@+id/type_normal"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="普"
+            android:visibility="gone"/>
+        <Button
+            android:id="@+id/type_SATELLITE"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="卫"
+            android:visibility="gone"/>
+        <Button
+            android:id="@+id/btn_traffic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="路"
+            android:visibility="gone"/>
+    </LinearLayout>
     <Button
-        android:id="@+id/submit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_bg"
-        android:text="查询"
-        android:layout_margin="@dimen/a4"/>
+        android:id="@+id/btn_location"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/ic_gps"
+        android:layout_gravity="bottom|left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="40dp"/>
+    <Button
+        android:id="@+id/btn_compass"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="罗盘"
+        android:layout_gravity="center|right"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone"/>
 
-    <TextView
-        android:id="@+id/result"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="@drawable/btn_bg"
-        android:layout_margin="@dimen/a4"/>
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        />
 
+    </FrameLayout>
 </LinearLayout>

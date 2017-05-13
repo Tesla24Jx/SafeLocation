@@ -2,7 +2,6 @@ package com.safelocation.login;
 
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -16,16 +15,13 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.GlideUrl;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.google.gson.Gson;
-import com.safelocation.Entity.UserInfo;
 import com.safelocation.Entity.Userdata;
 import com.safelocation.HomePage.HomeActivity;
+import com.safelocation.FindPassword.FindPwdActivity;
 import com.safelocation.Register.RegisterActivity;
 import com.safelocation.Entity.HttpRequest;
 import com.safelocation.HttpUtil.SubscriberOnNextListener;
@@ -118,7 +114,7 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
                     String str = gson.toJson(json);
                     ImageView imageView = new ImageView(getActivity());
                     Glide.with(getActivity()).load(Userdata.img);
-
+                    Log.d("###登录返回的json",str);
                     mCache.put("initdata",str);  //把好友列表信息存储到缓存
                     mCache.put("userphone",json.getMydata().getUphone());//保存用户手机以便服务获取
 
@@ -204,7 +200,7 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
                 startActivity(new Intent(getActivity(), RegisterActivity.class));
                 break;
             case R.id.tv_findpwd:
-                btn_login.setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_bg));
+                startActivity(new Intent(getActivity(), FindPwdActivity.class));
                 break;
             case R.id.btn_login:
                 btn_login.setClickable(false);

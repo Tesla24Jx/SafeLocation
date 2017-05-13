@@ -1,11 +1,15 @@
 package com.safelocation.Map;
 
+import android.content.DialogInterface;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +29,10 @@ import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.navi.BaiduMapAppNotSupportNaviException;
+import com.baidu.mapapi.navi.BaiduMapNavigation;
+import com.baidu.mapapi.navi.IllegalNaviArgumentException;
+import com.baidu.mapapi.navi.NaviParaOption;
 import com.baidu.trace.LBSTraceClient;
 import com.baidu.trace.LocationMode;
 import com.baidu.trace.OnEntityListener;
@@ -36,8 +44,11 @@ import com.safelocation.Entity.StrJson;
 import com.safelocation.Entity.Userdata;
 import com.safelocation.Entity.locEntities;
 import com.safelocation.HomePage.Location.LocationFragment;
+import com.safelocation.MainActivity;
 import com.safelocation.R;
 import com.safelocation.Utils.MyOrientationListener;
+import com.safelocation.Utils.ToastUtils;
+
 
 public class MapActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,6 +56,8 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
     LBSTraceClient client;
     private EditText ed_serviceID;
     private TextView tv_result;
+    private TextView topbar_title;
+    private ImageView topbar_left;
 
 
     //定位
@@ -62,7 +75,8 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
     boolean tag = true;
     BaiduMap baiduMap;
     BDLocation loc;
-
+    double longitude;
+    double latitude;
 
     private MapView mMapView;
     @Override
@@ -80,11 +94,17 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         mMapView = (MapView)findViewById(R.id.bmapView);
         baiduMap = mMapView.getMap();
         baiduMap.setMapStatus( MapStatusUpdateFactory.zoomTo(15.0f));//设置缩放级别
+        topbar_title = (TextView) findViewById(R.id.topbar_title);
+        topbar_left = (ImageView)findViewById(R.id.topbar_left);
+        topbar_left.setImageResource(R.drawable.ic_back);
+        topbar_title.setText(fname+"的位置");
+        topbar_left.setOnClickListener(this);
         findViewById(R.id.btn_traffic).setOnClickListener(this);
         findViewById(R.id.type_normal).setOnClickListener(this);
         findViewById(R.id.type_SATELLITE).setOnClickListener(this);
         findViewById(R.id.btn_compass).setOnClickListener(this);
         findViewById(R.id.btn_location).setOnClickListener(this);
+        findViewById(R.id.nav).setOnClickListener(this);
         // 初始化轨迹服务客户端
         client = new LBSTraceClient(this.getApplicationContext());
         //client.queryRealtimeLoc(fphone,onEntityListener);
@@ -106,10 +126,12 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
             Log.d("###json",s);
 
             locEntities locEntities = new Gson().fromJson(s,locEntities.class);
-            double longitude = locEntities.getEntities().get(0).getRealtime_point().getLocation().get(0);
-            double latitude = locEntities.getEntities().get(0).getRealtime_point().getLocation().get(1);
+            longitude = locEntities.getEntities().get(0).getRealtime_point().getLocation().get(0);
+            latitude = locEntities.getEntities().get(0).getRealtime_point().getLocation().get(1);
             String lasttime = locEntities.getEntities().get(0).getModify_time();
-
+            Log.d("###经度：",""+longitude);
+            Log.d("###纬度：",""+latitude);
+            Log.d("###时间",lasttime);
             LatLng point = new LatLng(latitude, longitude);
             //构建Marker图标
             BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_marka);
@@ -122,7 +144,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
             //移动到point位置
             MapStatusUpdate msu=MapStatusUpdateFactory.newLatLng(point);
             baiduMap.animateMapStatus(msu);
-            Toast.makeText(MapActivity.this,"更新时间:"+lasttime,Toast.LENGTH_LONG).show();
+            ToastUtils.snackbar_long(topbar_title,"最近更新时间："+lasttime);
             //Snackbar.make(mMapView,"位置更新时间："+lasttime,Snackbar.LENGTH_SHORT);
         }
 
@@ -205,6 +227,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
             case R.id.btn_location:
                 //定位
                 centerToMyLocation();
+                break;
             case R.id.btn_compass:
                 //罗盘模式
                 if (tag) {//tag默认是false
@@ -216,6 +239,13 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
                     //btnCompass.setBackgroundResource(R.drawable.button_theme);
                     tag=true;
                 }
+                break;
+            case R.id.topbar_left:
+                finish();
+                break;
+            case R.id.nav:
+                openBaiduMapToNav();
+                break;
 
         }
     }
@@ -303,5 +333,51 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
         mMapView.onPause();
     }
 
+    void openBaiduMapToNav(){
 
+        Log.d("### 起点经纬度:",Userdata.loc.getLongitude()+" ，"+Userdata.loc.getLatitude());
+        Log.d("### 终点经纬度:",longitude+" ，"+latitude);
+        //LatLng pt1 = new LatLng(Userdata.loc.getLongitude(),Userdata.loc.getLatitude());
+//        LatLng pt1 = new LatLng(113.95702897715,22.5489522252);
+//        LatLng pt2 = new LatLng(longitude,latitude);
+        LatLng pt1 = new LatLng(114.026939,22.542482);
+        LatLng pt2 = new LatLng(114.027007,22.539052);
+
+        NaviParaOption para = new NaviParaOption();
+        para.startPoint(pt1);
+        para.startName("从这里开始");
+        para.endPoint(pt2);
+        para.endName("到这里结束");
+
+        try {
+
+            BaiduMapNavigation.openBaiduMapNavi(para, this);
+            Log.d("###导行参数","导行参数");
+
+        } catch (BaiduMapAppNotSupportNaviException e) {
+            e.printStackTrace();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("您尚未安装百度地图app或app版本过低，点击确认安装？");
+            builder.setTitle("提示");
+            builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    //BaiduMapNavigation.GetLatestBaiduMapApp(MapActivity.this);
+                }
+            });
+
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            builder.create().show();
+        } catch (IllegalNaviArgumentException e){
+            Log.d("###非法导行参数","非法导行参数");
+        }
+
+    }
 }

@@ -13,6 +13,8 @@ import com.igexin.sdk.message.FeedbackCmdMessage;
 import com.igexin.sdk.message.GTCmdMessage;
 import com.igexin.sdk.message.GTTransmitMessage;
 import com.igexin.sdk.message.SetTagCmdMessage;
+import com.safelocation.Entity.Addfriend;
+import com.safelocation.Entity.FriendInfo;
 import com.safelocation.Entity.StrJson;
 import com.safelocation.Entity.Userdata;
 import com.safelocation.HttpUtil.HttpUtil;
@@ -21,6 +23,7 @@ import com.safelocation.Utils.ACache;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.litepal.crud.DataSupport;
 
 /**
  * 继承 GTIntentService 接收来自个推的消息, 所有消息在线程中回调, 如果注册了该服务, 则务必要在 AndroidManifest中声明, 否则无法接受消息<br>
@@ -84,7 +87,14 @@ public class GeTuiIntentService extends GTIntentService {
             ACache aCache=ACache.get(this);
             switch (strJson.getType()){
                 case "add_friend":
-                    aCache.put("add_friend",strJson.getData());
+                    //aCache.put("add_friend",strJson.getData());
+                    Addfriend addfriendInfo= new Gson().fromJson(strJson.getData(),Addfriend.class);
+
+                    if (addfriendInfo.save()) {
+                        Log.d("###存储","存储成功");
+                    } else {
+                        Log.d("###存储","存储失败");
+                    }
                     break;
                 case "add_agree":
                     aCache.put("refulshList",strJson.getData());

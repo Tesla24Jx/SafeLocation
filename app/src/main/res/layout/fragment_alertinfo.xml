@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff">
+
+    <include layout="@layout/topbar"/>
+
+    <LinearLayout
+        android:id="@+id/linelayout"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="vertical"
+        android:background="@color/theme_color"
+        android:gravity="center">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/fillup_head"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:src="@drawable/default_userhead"
+            app:civ_border_width="1dp"
+            app:civ_border_color="#fff"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="@dimen/a4"
+        android:paddingRight="@dimen/a4"
+        android:layout_marginTop="16dp"
+        android:background="#fff">
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户名:"
+            android:textSize="@dimen/t6" />
+        <EditText
+            android:id="@+id/fillup_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="阿里山"
+            android:textSize="@dimen/t5"
+            android:layout_below="@id/username"
+            android:background="@drawable/ed_bg_default"
+            android:layout_marginTop="@dimen/a6"
+            android:layout_marginBottom="@dimen/a6"/>
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机号:"
+            android:textSize="@dimen/t6"
+            android:layout_below="@id/fillup_username"
+            />
+        <EditText
+            android:id="@+id/fillup_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="13120320323"
+            android:textSize="@dimen/t5"
+            android:layout_below="@id/phone"
+            android:background="@drawable/ed_bg_default"
+            android:layout_marginTop="@dimen/a6"
+            android:layout_marginBottom="@dimen/a6"/>
+
+
+        <TextView
+            android:id="@+id/age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="年龄:"
+            android:textSize="@dimen/t6"
+            android:layout_below="@id/fillup_phone"
+            />
+        <EditText
+            android:id="@+id/fillup_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="23"
+            android:textSize="@dimen/t5"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/age"
+            android:background="@drawable/ed_bg_default"
+            android:layout_marginTop="@dimen/a6"
+            android:layout_marginBottom="@dimen/a6" />
+
+        <TextView
+            android:id="@+id/sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="性别:"
+            android:textSize="@dimen/t6"
+            android:layout_below="@id/fillup_age"
+            />
+        <EditText
+            android:id="@+id/fillup_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="女"
+            android:textSize="@dimen/t6"
+            android:background="@drawable/ed_bg_default"
+            android:layout_below="@id/sex"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/a6"/>
+
+
+        <Button
+            android:id="@+id/btn_submitInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg"
+            android:text="完成"
+            android:textColor="@color/text_btn_color"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+
+</LinearLayout>

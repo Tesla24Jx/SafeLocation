@@ -88,6 +88,22 @@ public class HttpUtil {
                         .subscribe(new ProgressSubscriber(getOnNext));
                 Log.d("###httpsend_register","httpsend");
                 break;
+            case "checkAccount":
+                httpServer.getcheckAccountResult_post(strJson)
+                        .subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new ProgressSubscriber(getOnNext));
+                Log.d("###httpsend_register","checkAccount");
+                break;
+             case "alertpwd":
+                httpServer.getAlertPwdResult_post(strJson)
+                        .subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new ProgressSubscriber(getOnNext));
+                Log.d("###httpsend_register","alertpwd");
+                break;
             case "searchfriend":
                 httpServer.getfriend_post(strJson)
                         .subscribeOn(Schedulers.io())

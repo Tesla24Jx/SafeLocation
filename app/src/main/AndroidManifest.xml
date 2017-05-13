@@ -57,6 +57,7 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
     <application
+        android:name="org.litepal.LitePalApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -93,6 +94,7 @@
         <activity android:name=".Activity" />
         <activity android:name="com.mob.tools.MobUIShell" />
         <activity android:name=".HomePage.HomeActivity" />
+        <activity android:name=".HomePage.Group.AlertPwdActivity"/>
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -181,13 +183,11 @@
         <activity android:name=".HomePage.FriendList.AddFriendActivity" />
         <activity android:name=".HomePage.FriendList.MSGActivity" />
 
-        <!--<service-->
-            <!--android:name=".Trace.TrackService"-->
-            <!--android:exported="true"-->
-            <!--android:label="TrackService"-->
-            <!--android:process=":pushservice" />-->
-
-
+        <!-- <service -->
+        <!-- android:name=".Trace.TrackService" -->
+        <!-- android:exported="true" -->
+        <!-- android:label="TrackService" -->
+        <!-- android:process=":pushservice" /> -->
 
         <receiver android:name=".Trace.TrackReceiver">
             <intent-filter>
@@ -208,11 +208,14 @@
         <service
             android:name=".Trace.MyService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
         <service
             android:name=".Trace.TrackService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".HomePage.FriendList.TransferActivity" />
+        <activity android:name=".HomePage.FriendList.MsgListActivity"></activity>
     </application>
 
 </manifest>
