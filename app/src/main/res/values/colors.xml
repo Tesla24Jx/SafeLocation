@@ -10,7 +10,7 @@
     <color name="bottom_bg">#e11f1f</color>
 
     <!--按钮颜色-->
-    <color name="btn_default">#00ffffff</color>
+    <color name="btn_default">#fff</color>
     <color name="btn_pressed">#8800b0ff</color>
 
     <color name="blue">#00b0ff</color>

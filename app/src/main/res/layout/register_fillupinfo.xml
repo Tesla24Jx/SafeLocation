@@ -2,25 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/logbg">
+            android:orientation="vertical">
 
-            <include layout="@layout/topbar"
-                android:visibility="gone"/>
+            <include layout="@layout/topbar" />
 
     <LinearLayout
         android:id="@+id/linelayout"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:orientation="vertical"
-        android:gravity="center">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:text="完善个人资料"
-            android:textColor="#fff"
-            android:textSize="@dimen/t3"
-            android:gravity="center" />
+        android:gravity="center"
+        android:background="@color/theme_color">
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -48,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="请设置用户名"
-                    android:text="pingan"
+                    android:text=""
                     android:paddingLeft="3dp"
                     android:background="@drawable/ed_bg_default"
                     android:textSize="@dimen/t5"
@@ -62,7 +54,7 @@
                     android:paddingLeft="3dp"
                     android:background="@drawable/ed_bg_default"
                     android:textSize="@dimen/t5"
-                    android:text="qq123456"
+                    android:text=""
                     android:layout_below="@+id/fillup_username"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
@@ -72,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="确认密码"
-                    android:text="qq123456"
+                    android:text=""
                     android:paddingLeft="3dp"
                     android:background="@drawable/ed_bg_default"
                     android:textSize="@dimen/t5"
@@ -107,7 +99,7 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:hint=""
-                    android:text="29"
+                    android:text=""
                     android:paddingLeft="3dp"
                     android:background="@drawable/ed_bg_default"
                     android:textSize="@dimen/t5"
