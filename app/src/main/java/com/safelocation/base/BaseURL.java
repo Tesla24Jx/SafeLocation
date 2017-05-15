@@ -6,7 +6,4 @@ package com.safelocation.base;
 
 public class BaseURL {
     public static final String Base_URL = "http://115.29.37.188:80";
-
-
-
 }
