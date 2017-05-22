@@ -1,6 +1,7 @@
 package com.safelocation.Service;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
@@ -89,7 +90,7 @@ public class GeTuiIntentService extends GTIntentService {
                 case "add_friend":
                     //aCache.put("add_friend",strJson.getData());
                     Addfriend addfriendInfo= new Gson().fromJson(strJson.getData(),Addfriend.class);
-
+                    Log.d("###addfriendInfo",strJson.getData());
                     if (addfriendInfo.save()) {
                         Log.d("###存储","存储成功");
                     } else {
@@ -98,6 +99,7 @@ public class GeTuiIntentService extends GTIntentService {
                     break;
                 case "add_agree":
                     aCache.put("refulshList",strJson.getData());
+                    sendBroadcast(new Intent().setAction("refulshList"));
                     break;
             }
         }

@@ -2,8 +2,10 @@ package com.safelocation.HomePage.Group;
 
 import android.util.Log;
 
+import com.safelocation.Entity.UserInfo;
 import com.safelocation.HttpUtil.HttpUtil;
 import com.safelocation.HttpUtil.SubscriberOnNextListener;
+import com.safelocation.Utils.Common;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +42,14 @@ public class GroupModel {
         String strJson = jsonObject.toString();
         String type = "uploadHead";
         //Log.d("###SendJson",""+strJson.toString());
+        HttpUtil.getInstance().getJSON(getOnNext,strJson,type);
+    }
+
+    void submitInfo(SubscriberOnNextListener getOnNext, UserInfo userInfo){
+
+        String strJson = Common.gson.toJson(userInfo);
+        String type = "alertInfo";
+        Log.d("###SendJson123",""+strJson);
         HttpUtil.getInstance().getJSON(getOnNext,strJson,type);
     }
 }

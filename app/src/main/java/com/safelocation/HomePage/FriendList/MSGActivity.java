@@ -1,5 +1,6 @@
 package com.safelocation.HomePage.FriendList;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.icu.text.LocaleDisplayNames;
 import android.support.design.widget.Snackbar;
@@ -27,9 +28,11 @@ import com.safelocation.HttpUtil.HttpUtil;
 import com.safelocation.HttpUtil.SubscriberOnNextListener;
 import com.safelocation.R;
 import com.safelocation.Utils.ACache;
+import com.safelocation.Utils.Common;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.litepal.crud.DataSupport;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -44,12 +47,14 @@ public class MSGActivity extends AppCompatActivity {
     private TextView tv_mime;
     private int aSwitch_get = 1;
     private Switch aSwitch_give;
+    private SubscriberOnNextListener getOnNext;
 
     String fid;
     String fimg;
     String fname;
     String fmime;
     String type;
+    String already_add;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +87,30 @@ public class MSGActivity extends AppCompatActivity {
             }
         });
 
+        getOnNext = new SubscriberOnNextListener<StrJson>() {
+            @Override
+            public void onNext(StrJson json) {
+                HttpRequest httpRequest=Common.gson.fromJson(json.getData(),HttpRequest.class);
+                String str = Common.gson.toJson(httpRequest);
+                ACache.get(MSGActivity.this).put("addinfo",str);  //把好友列表信息存储到缓存
+                ACache.get(MSGActivity.this).put(fid,fid);
+                Log.d("###return_data",str);
+                sendBroadcast(new Intent().setAction("rushList"));
+                Snackbar.make(btn_add,"好友已添加",Snackbar.LENGTH_SHORT).show();
+                btn_add.setEnabled(false);
+                btn_add.setText("已添加为好友");
+                ContentValues values = new ContentValues();
+                values.put("already_add", "1");
+                DataSupport.updateAll(Addfriend.class, values, "fid = ?", fid);
+//                tv_fname.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        finish();
+//                    }
+//                },1500);
+            }
+        };
+
         Bundle bundle = getIntent().getBundleExtra("fdata");
         if(bundle!=null) {
             fid = bundle.getString("fid");
@@ -89,14 +118,23 @@ public class MSGActivity extends AppCompatActivity {
             fname = bundle.getString("fname");
             fmime = bundle.getString("fmime");
             type = bundle.getString("type");
+            already_add = bundle.getString("already_add");
             tv_fname.setText(fname);
             Glide.with(this)
                     .load(fimg)
                     .placeholder(R.drawable.default_userhead)
                     .into(fhead);
+
             if(type.equals("af")){
                 tv_mime.setText("备注："+fmime);
                 aSwitch_give.setChecked(true);
+
+                ;
+                if(already_add.equals("1")){
+                    btn_add.setEnabled(false);
+                    btn_add.setText("已添加为好友");
+                    return;
+                }
 
                 btn_add.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -113,18 +151,7 @@ public class MSGActivity extends AppCompatActivity {
                         }
                         String strJson = jsonObject.toString();
                         String type = "add_agree";
-                        HttpUtil.getInstance().getJSON(new SubscriberOnNextListener<StrJson>() {
-                            @Override
-                            public void onNext(StrJson o) {
-
-                                ACache.get(MSGActivity.this).put("refulshList",o.getData());  //把好友列表信息存储到缓存
-                                Log.d("###return_data",o.getData());
-                                sendBroadcast(new Intent().setAction("rushList"));
-                                Snackbar.make(btn_add,"好友已添加",Snackbar.LENGTH_SHORT).show();
-                                finish();
-                            }
-                        },strJson,type);
-
+                        HttpUtil.getInstance().getJSON(getOnNext,strJson,type);
                     }
                 });
 

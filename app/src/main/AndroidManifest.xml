@@ -80,7 +80,7 @@
 
         <!-- 百度鹰眼配置 -->
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -88,12 +88,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".Map.MapActivity" />
-        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".Register.RegisterActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".Activity" />
         <activity android:name="com.mob.tools.MobUIShell" />
         <activity android:name=".HomePage.HomeActivity" />
+        <activity android:name=".FindPassword.FindPwdActivity"/>
         <activity android:name=".HomePage.Group.AlertPwdActivity"/>
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for

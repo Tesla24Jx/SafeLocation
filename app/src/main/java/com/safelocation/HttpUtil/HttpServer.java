@@ -60,5 +60,20 @@ public interface HttpServer {
     @POST("/safelocation/add_agree.php")
     Observable<StrJson> add_f_agree_post(@Field("add_agree") String add_agree);
 
+    //修改个人信息接口
+    @FormUrlEncoded
+    @POST("/safelocation/alertInfo.php")
+    Observable<StrJson> alertInfo_post(@Field("alertInfo") String alertInfo);
+
+    //删除好友接口
+    @FormUrlEncoded
+    @POST("/safelocation/delfriend.php")
+    Observable<StrJson> delfriend_post(@Field("delfriend") String delfriend);
+
+    //授权给好友接口
+    @FormUrlEncoded
+    @POST("/safelocation/alertpermission.php")
+    Observable<StrJson> alertPermission_post(@Field("alertpermission") String alertpermission);
+
 
 }

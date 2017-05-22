@@ -98,10 +98,10 @@ public class RegisterFragment extends Fragment implements RegisterContract.View,
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if(radio_male.getId() == checkedId){
                     setSex("男");
-                    showTip("男");
+
                 }else if(radio_female.getId() == checkedId){
                     setSex("女");
-                    showTip("女");
+
                 }
             }
         });

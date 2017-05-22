@@ -1,7 +1,9 @@
 package com.safelocation.HomePage.Group;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -18,12 +20,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.baidu.trace.LBSTraceService;
 import com.bumptech.glide.Glide;
 import com.safelocation.Entity.HttpRequest;
 import com.safelocation.Entity.StrJson;
+import com.safelocation.Entity.UserInfo;
 import com.safelocation.Entity.Userdata;
 import com.safelocation.HttpUtil.SubscriberOnNextListener;
 import com.safelocation.R;
@@ -52,21 +57,31 @@ public class AlertFragment extends Fragment implements View.OnClickListener {
     private EditText fillup_username;
     private EditText fillup_age;
     private EditText fillup_phone;
-    private EditText fillup_sex;
+    private RadioGroup fillup_radiogroup;
+    private RadioButton radio_male;
+    private RadioButton radio_female;
     private Button btn_submitInfo;
 
+    private String sex="男";
     private String headUrl;
     private BottomPopView bottomPopView;
     private static int CAMERA_REQUEST_CODE = 1;
     private static int GALLERY_REQUEST_CODE = 2;
     private static int CROP_REQUEST_CODE = 3;
+    private GroupModel groupModel = new GroupModel();
     private SubscriberOnNextListener getOnNext;
     private SubscriberOnNextListener getOnNext_uploadhead;
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+        }
+    };
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        
+
     }
 
     @Override
@@ -79,7 +94,9 @@ public class AlertFragment extends Fragment implements View.OnClickListener {
         topbar_right = (ImageView) view.findViewById(R.id.topbar_right);
         fillup_head = (ImageView) view.findViewById(R.id.fillup_head);
         fillup_username = (EditText) view.findViewById(R.id.fillup_username);
-        fillup_sex = (EditText) view.findViewById(R.id.fillup_sex);
+        fillup_radiogroup = (RadioGroup) view.findViewById(R.id.fillup_radioGroup);
+        radio_male = (RadioButton)view.findViewById(R.id.radioMale);
+        radio_female = (RadioButton)view.findViewById(R.id.radioFemale);
         fillup_phone = (EditText) view.findViewById(R.id.fillup_phone);
         fillup_age = (EditText) view.findViewById(R.id.fillup_age);
         btn_submitInfo = (Button) view.findViewById(R.id.btn_submitInfo);
@@ -88,6 +105,8 @@ public class AlertFragment extends Fragment implements View.OnClickListener {
         fillup_head.setOnClickListener(this);
         topbar_left.setOnClickListener(this);
         btn_submitInfo.setOnClickListener(this);
+
+
         return view;
     }
 
@@ -96,38 +115,67 @@ public class AlertFragment extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
 
         Glide.with(this).load(Userdata.img).placeholder(R.drawable.default_userhead).into(fillup_head);
-
+        setHeadUrl(Userdata.img);
         topbar_title.setText("修改信息");
         topbar_left.setImageResource(R.drawable.ic_back);
 
-        fillup_username.setText(Userdata.uname);
-        fillup_phone.setText(Userdata.uphone);
-        fillup_age.setText(""+Userdata.age);
-        fillup_sex.setText(Userdata.sex);
+        initInfo();
+        btn_submitInfo.setText("保存");
 
-        btn_submitInfo.setText(" 完成");
 
+        fillup_radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(radio_male.getId() == checkedId){
+                    setSex("男");
+
+                }else if(radio_female.getId() == checkedId){
+                    setSex("女");
+                }
+            }
+        });
         init_bottomPoP();
         //获取数据
-        getOnNext = new SubscriberOnNextListener<HttpRequest>() {
+        getOnNext = new SubscriberOnNextListener<StrJson>() {
             @Override
-            public void onNext(HttpRequest json) {
+            public void onNext(StrJson json) {
+                Log.d("###return data",""+json.getMsg());
+                Userdata.uname = fillup_username.getText().toString().trim();
+                Userdata.age = Integer.valueOf(fillup_age.getText().toString().trim());
+                Userdata.sex = sex;
+                Userdata.img = headUrl;
                 //goto_homePage();
+                getActivity().sendBroadcast(new Intent().setAction("updateInfo"));
             }
         };
         getOnNext_uploadhead = new SubscriberOnNextListener<StrJson>() {
             @Override
             public void onNext(StrJson json) {
                 setHeadUrl(json.getData());
-                Log.d("###图片地址",""+json.getData());
+                Log.d("###图片地址123",""+json.getData());
             }
         };
+
+    }
+
+    private void initInfo() {
+        fillup_username.setText(Userdata.uname);
+        fillup_phone.setText(Userdata.uphone);
+        fillup_age.setText(""+Userdata.age);
+
+        if(Userdata.sex.equals("男")){
+            radio_male.setChecked(true);
+            radio_female.setChecked(false);
+        }else{
+            radio_male.setChecked(false);
+            radio_female.setChecked(true);
+        }
     }
 
     public void setHeadUrl(String headUrl) {
         this.headUrl = headUrl;
     }
-
+    public void setSex(String s){this.sex=s;}
     private void init_bottomPoP(){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.activity_main, null);
         bottomPopView = new BottomPopView(getActivity(),view) {
@@ -158,12 +206,21 @@ public class AlertFragment extends Fragment implements View.OnClickListener {
                 bottomPopView.show();
                 break;
             case R.id.btn_submitInfo:
+                UserInfo userInfo = new UserInfo();
+                userInfo.setUname(fillup_username.getText().toString().trim());
+                userInfo.setUphone(fillup_phone.getText().toString().trim());
+                userInfo.setAge(Integer.valueOf(fillup_age.getText().toString().trim()));
+                userInfo.setSex(sex);
+                userInfo.setImg(headUrl);
+
+                groupModel.submitInfo(getOnNext,userInfo);
                 break;
             case R.id.topbar_left:
                 getActivity().finish();
                 break;
         }
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -298,6 +355,6 @@ public class AlertFragment extends Fragment implements View.OnClickListener {
         bm.compress(Bitmap.CompressFormat.PNG, 60, stream);
         byte[] bytes = stream.toByteArray();
         String img = new String(Base64.encodeToString(bytes, Base64.DEFAULT));
-        new GroupModel().uploadhead(getOnNext_uploadhead,img);
+        groupModel.uploadhead(getOnNext_uploadhead,img);
 }
 }

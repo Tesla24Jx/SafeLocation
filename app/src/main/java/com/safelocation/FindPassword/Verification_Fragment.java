@@ -66,6 +66,7 @@ public class Verification_Fragment extends Fragment implements View.OnClickListe
         btnRegist.setOnClickListener(this);
 
         topbar_title.setText("找回密码");
+        btnRegist.setText("校验");
         return view;
     }
 

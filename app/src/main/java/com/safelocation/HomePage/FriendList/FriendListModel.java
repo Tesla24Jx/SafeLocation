@@ -71,4 +71,32 @@ public class FriendListModel {
 
     }
 
+    void delFriend(SubscriberOnNextListener getOnNext,String phone){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("uid",Userdata.uid);
+            jsonObject.put("phone", phone);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String strJson = jsonObject.toString();
+        String type = "delfriend";
+        Log.d("###SendJson",""+strJson);
+        HttpUtil.getInstance().getJSON(getOnNext,strJson,type);
+    }
+    void alertPermission(SubscriberOnNextListener getOnNext,String phone,int forpermission){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("uid",Userdata.uid);
+            jsonObject.put("phone", phone);
+            jsonObject.put("forpermission",forpermission);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String strJson = jsonObject.toString();
+        String type = "alertPermission";
+        Log.d("###SendJson",""+strJson);
+        HttpUtil.getInstance().getJSON(getOnNext,strJson,type);
+    }
+
 }

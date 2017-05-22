@@ -337,13 +337,14 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
 
         Log.d("### 起点经纬度:",Userdata.loc.getLongitude()+" ，"+Userdata.loc.getLatitude());
         Log.d("### 终点经纬度:",longitude+" ，"+latitude);
-        //LatLng pt1 = new LatLng(Userdata.loc.getLongitude(),Userdata.loc.getLatitude());
-//        LatLng pt1 = new LatLng(113.95702897715,22.5489522252);
-//        LatLng pt2 = new LatLng(longitude,latitude);
-        LatLng pt1 = new LatLng(114.026939,22.542482);
-        LatLng pt2 = new LatLng(114.027007,22.539052);
+        LatLng pt1 = new LatLng(Userdata.loc.getLongitude(),Userdata.loc.getLatitude());
+        LatLng pt2 = new LatLng(longitude,latitude);
+
+//        LatLng pt1 = new LatLng(114.026939,22.542482);
+//        LatLng pt2 = new LatLng(114.020548,22.540529);
 
         NaviParaOption para = new NaviParaOption();
+
         para.startPoint(pt1);
         para.startName("从这里开始");
         para.endPoint(pt2);
@@ -376,6 +377,7 @@ public class MapActivity extends AppCompatActivity implements View.OnClickListen
 
             builder.create().show();
         } catch (IllegalNaviArgumentException e){
+            Log.d("###exception",e.getMessage());
             Log.d("###非法导行参数","非法导行参数");
         }
 

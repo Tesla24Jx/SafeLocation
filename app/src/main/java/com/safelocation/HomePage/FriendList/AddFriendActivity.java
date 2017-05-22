@@ -112,6 +112,12 @@ public class AddFriendActivity extends AppCompatActivity implements View.OnClick
                     .into(fhead);
         }else{
             Snackbar.make(btn_add,msg,Snackbar.LENGTH_SHORT).show();
+            btn_add.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            },1500);
         }
     }
 

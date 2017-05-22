@@ -7,6 +7,7 @@ import org.litepal.crud.DataSupport;
  */
 
 public class Addfriend extends DataSupport{
+    private String uid;
     private String fid;
     private String fphone;
     private String fname;
@@ -15,6 +16,23 @@ public class Addfriend extends DataSupport{
     private String forpermission;
     private String getpermission;
     private String type;
+    private String already_add;
+
+    public String getAlready_add() {
+        return already_add;
+    }
+
+    public void setAlready_add(String already_add) {
+        this.already_add = already_add;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getType() {
         return type;

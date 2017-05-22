@@ -1,9 +1,14 @@
 package com.safelocation.HomePage.Group;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +34,14 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
     private TextView Uname;
     private TextView Uphone;
 
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("###GroupFragment广播接收器","已收到广播");
+            InitInfo();
+        }
+    };
+
 
     @Nullable
     @Override
@@ -52,12 +65,16 @@ public class GroupFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        InitInfo();
+        IntentFilter filter = new IntentFilter("updateInfo");
+        getActivity().registerReceiver(broadcastReceiver,filter);
+    }
+
+    void InitInfo(){
         Glide.with(this).load(Userdata.img).into(Uhead);
         Uname.setText(Userdata.uname);
         Uphone.setText(Userdata.uphone);
-
     }
-
     @Override
     public void onClick(View v) {
         switch(v.getId()){

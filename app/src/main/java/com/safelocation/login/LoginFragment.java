@@ -191,6 +191,8 @@ public class LoginFragment extends Fragment implements LoginContract.View, View.
                 .animate(scaleAnimation)
                 .placeholder(R.drawable.default_userhead)
                 .into(img_head);
+          ed_phone.setText(httpRequest.getMydata().getUphone());
+        ed_password.setText(httpRequest.getMydata().getUpwd());
     }
 
     @Override

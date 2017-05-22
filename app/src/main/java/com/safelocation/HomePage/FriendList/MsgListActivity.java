@@ -3,6 +3,7 @@ package com.safelocation.HomePage.FriendList;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -11,10 +12,12 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.map.Text;
 import com.safelocation.Entity.Addfriend;
+import com.safelocation.Entity.Userdata;
 import com.safelocation.R;
 import com.safelocation.Utils.ToastUtils;
 
 import org.litepal.crud.DataSupport;
+import org.litepal.exceptions.DataSupportException;
 
 import java.util.List;
 
@@ -37,7 +40,17 @@ public class MsgListActivity extends AppCompatActivity {
         listView.setDivider(null);
         topbar_left.setImageResource(R.drawable.ic_back);
         topbar_title.setText("消息列表");
-        listdata = DataSupport.findAll(Addfriend.class);
+//        listdata = DataSupport.findAll(Addfriend.class);
+        listdata = DataSupport.where("uid = ?", Userdata.uid).find(Addfriend.class);
+//        try{
+//            List<Addfriend> listdata2 = DataSupport.findAll(Addfriend.class);
+//            for (Addfriend ld:listdata2){
+//                ld.get
+//            }
+//            listdata2.get()
+//        }catch (DataSupportException e){
+//            Log.d("###DataSupportException",e.getMessage());
+//        }
         ToastUtils.snackbar_long(listView,listdata.size()+"");
 
         msgAdapter = new MsgAdapter(this,listdata);
@@ -53,6 +66,7 @@ public class MsgListActivity extends AppCompatActivity {
                 bundle.putString("fimg",addfriend.getFimg());
                 bundle.putString("fmime",addfriend.getMime());
                 bundle.putString("type",addfriend.getType());
+                bundle.putString("already_add",addfriend.getAlready_add());
                 startActivity(new Intent(MsgListActivity.this,MSGActivity.class).putExtra("fdata",bundle));
             }
         });

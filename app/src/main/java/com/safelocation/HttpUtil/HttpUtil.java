@@ -61,7 +61,7 @@ public class HttpUtil {
      * 用于获取的数据
      * @param
      */
-    public void getJSON(SubscriberOnNextListener getOnNext, String strJson,String type){
+    public void  getJSON(SubscriberOnNextListener getOnNext, String strJson,String type){
 
         switch(type){
             case "login":
@@ -131,6 +131,30 @@ public class HttpUtil {
             case "add_agree":
                 Log.d("###json",strJson);
                 httpServer.add_f_agree_post(strJson)
+                        .subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new ProgressSubscriber(getOnNext));
+                break;
+            case "alertInfo":
+                Log.d("###json",strJson);
+                httpServer.alertInfo_post(strJson)
+                        .subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new ProgressSubscriber(getOnNext));
+                break;
+            case "delfriend":
+                Log.d("###json",strJson);
+                httpServer.delfriend_post(strJson)
+                        .subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new ProgressSubscriber(getOnNext));
+                break;
+            case "alertPermission":
+                Log.d("###json",strJson);
+                httpServer.alertPermission_post(strJson)
                         .subscribeOn(Schedulers.io())
                         .unsubscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
